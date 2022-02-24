@@ -60,7 +60,7 @@ for element in selection:
 
 ducts = Duct(list_elements_duct)
 ducts.form_dict_ducts()
-ducts.output()
+ducts._output()
 
 
 
