@@ -67,17 +67,17 @@ if __name__ == '__main__':
 
     selection = get_selected_elements(doc)
 
-    list_shaped_elements = []
+    list_fittings = []
     list_ducts = []
 
     elements = selection
 
     for element in elements:
         if element.Category.Name == 'Соединительные детали воздуховодов':
-            list_shaped_elements.append(element)
+            list_fittings.append(element)
         elif element.Category.Name == 'Воздуховоды':
             list_ducts.append(element)
 
-    fittings = Fittings(list_shaped_elements, list_ducts)
+    fittings = Fittings(list_fittings, list_ducts)
 
 
