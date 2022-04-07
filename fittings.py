@@ -5,6 +5,8 @@ clr.AddReference('RevitAPI')
 
 from Autodesk.Revit import DB
 
+doc = __revit__.ActiveUIDocument.Document
+
 class Fittings(object):
     def __init__(self, list_shaped_elements, list_ducts):
         self._shaped_elements = {}

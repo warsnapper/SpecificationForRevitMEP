@@ -54,6 +54,8 @@ class Ducts(object):
             try:
                 self._diameter = element.LookupParameter('Диаметр').AsValueString()
                 self._length = float(element.LookupParameter('Длина').AsValueString()) / 1000
+                if self._length <= 0.25:
+                    continue
                 name = self._name_for_round_duct(self._diameter)
                 if name in self._round_ducts.keys():
                     self._round_ducts[name] += self._length
@@ -63,6 +65,8 @@ class Ducts(object):
                 self._width = element.LookupParameter('Ширина').AsValueString()
                 self._height = element.LookupParameter('Высота').AsValueString()
                 self._length = float(element.LookupParameter('Длина').AsValueString()) / 1000
+                if self._length <= 0.25:
+                    continue
                 name = self._name_for_rect_duct(self._width, self._height)
                 if name in self._rect_ducts.keys():
                     self._rect_ducts[name] += self._length
