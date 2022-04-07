@@ -10,11 +10,11 @@ doc = __revit__.ActiveUIDocument.Document
 class Fittings(object):
     def __init__(self, list_shaped_elements, list_ducts):
         self._shaped_elements = {}
-        self._sort_shaped_elements(list_shaped_elements)
+        self._sort_fittings(list_shaped_elements)
         self._nipples(list_ducts, 3)
         self._output(self._shaped_elements)
 
-    def _sort_shaped_elements(self, list_shaped_elements):
+    def _sort_fittings(self, list_shaped_elements):
         for element in list_shaped_elements:
             elementId = element.GetTypeId()
             typesize = doc.GetElement(elementId)
