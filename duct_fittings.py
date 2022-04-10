@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import clr
-clr.AddReference('RevitAPI')
-
-from Autodesk.Revit import DB
-
 doc = __revit__.ActiveUIDocument.Document
 
-class Fittings(object):
-    def __init__(self, list_shaped_elements, list_ducts):
-        self._shaped_elements = {}
-        self._sort_fittings(list_shaped_elements)
+class DuctFittings(object):
+    def __init__(self, list_duct_fittings, list_ducts):
+        self._duct_fittings = {}
+        self._sort_fittings(list_duct_fittings)
         self._nipples(list_ducts, 3)
-        self._output(self._shaped_elements)
+        self._output(self._duct_fittings)
 
-    def _sort_fittings(self, list_shaped_elements):
-        for element in list_shaped_elements:
+    def _sort_fittings(self, list_duct_fittings):
+        for element in list_duct_fittings:
             elementId = element.GetTypeId()
             typesize = doc.GetElement(elementId)
             comment = typesize.LookupParameter('Комментарии к типоразмеру').AsString()
@@ -25,10 +20,10 @@ class Fittings(object):
                 comment = ''
             size = element.LookupParameter('Размер').AsString()
             name = comment + ' ' + size + ' мм.'
-            if name in self._shaped_elements.keys():
-                self._shaped_elements[name] += 1
+            if name in self._duct_fittings.keys():
+                self._duct_fittings[name] += 1
             else:
-                self._shaped_elements[name] = 1
+                self._duct_fittings[name] = 1
 
     def _nipples(self, list_ducts, multiple):
         for element in list_ducts:
@@ -37,10 +32,10 @@ class Fittings(object):
                 length = float(element.LookupParameter('Длина').AsValueString()) / 1000
                 name = 'Ниппель круглого воздуховода ø' + diameter + ' мм.'
                 if int(length / multiple):
-                    if name in self._shaped_elements.keys():
-                        self._shaped_elements[name] += int(length / multiple)
+                    if name in self._duct_fittings.keys():
+                        self._duct_fittings[name] += int(length / multiple)
                     else:
-                        self._shaped_elements[name] = int(length / multiple)
+                        self._duct_fittings[name] = int(length / multiple)
             except:
                 pass
 
@@ -67,17 +62,17 @@ if __name__ == '__main__':
 
     selection = get_selected_elements(doc)
 
-    list_fittings = []
+    list_duct_fittings = []
     list_ducts = []
 
     elements = selection
 
     for element in elements:
         if element.Category.Name == 'Соединительные детали воздуховодов':
-            list_fittings.append(element)
+            list_duct_fittings.append(element)
         elif element.Category.Name == 'Воздуховоды':
             list_ducts.append(element)
 
-    fittings = Fittings(list_fittings, list_ducts)
+    fittings = DuctFittings(list_duct_fittings, list_ducts)
 
 
