@@ -7,6 +7,7 @@ from ducts import Ducts
 from duct_fittings import DuctFittings
 from equipment import Equipment
 from flex_ducts import FlexDucts
+from insulation_ducts import InsulationDucts
 
 uidoc = __revit__.ActiveUIDocument
 doc = __revit__.ActiveUIDocument.Document
@@ -60,3 +61,4 @@ air_distributors = Equipment(list_air_distributors, list_name_parameters, list_c
 ducts = Ducts(list_ducts)
 duct_fittings = DuctFittings(list_duct_fittings, list_ducts)
 flex_ducts = FlexDucts(list_flex_ducts)
+insulation_ducts = InsulationDucts(list_ducts, 1.35)
