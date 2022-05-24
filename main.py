@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'd:\Dropbox\programming\Python')
+sys.path.append(r'u:\Scripts\SpecificationForRevitMEP')
 import clr
 clr.AddReference('RevitAPI')
 
@@ -8,6 +8,8 @@ from duct_fittings import DuctFittings
 from equipment import Equipment
 from flex_ducts import FlexDucts
 from insulation_ducts import InsulationDucts
+from tubies import Pipes
+from pipe_fittings import PipeFittings
 
 uidoc = __revit__.ActiveUIDocument
 doc = __revit__.ActiveUIDocument.Document
@@ -30,6 +32,9 @@ list_air_distributors = []
 list_ducts = []
 list_duct_fittings = []
 list_flex_ducts = []
+list_pipe_accessories = []
+list_pipes = []
+list_pipe_fittings = []
 
 for element in selection:
     if element.Category.Name == 'Оборудование':
@@ -44,6 +49,12 @@ for element in selection:
         list_duct_fittings.append(element)
     elif element.Category.Name == 'Гибкие воздуховоды':
         list_flex_ducts.append(element)
+    elif element.Category.Name == 'Арматура трубопроводов':
+        list_pipe_accessories.append(element)
+    elif element.Category.Name == 'Трубы':
+        list_pipes.append(element)
+    elif element.Category.Name == 'Соединительные детали трубопроводов':
+        list_pipe_fittings.append(element)
 
 list_name_parameters = ['ADSK_Наименование', 
                         'ADSK_Марка',
@@ -62,3 +73,6 @@ ducts = Ducts(list_ducts)
 duct_fittings = DuctFittings(list_duct_fittings, list_ducts)
 flex_ducts = FlexDucts(list_flex_ducts)
 insulation_ducts = InsulationDucts(list_ducts, 1.35)
+pipe_accessories = Equipment(list_pipe_accessories, list_name_parameters, list_closing_parameters)
+pipes = Pipes(list_pipes, unaccountable_length = 0.1, additional_coefficient = 1.2)
+pipe_fittings = PipeFittings(list_pipe_fittings)

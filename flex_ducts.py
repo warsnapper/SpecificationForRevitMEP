@@ -41,7 +41,7 @@ class FlexDucts(object):
 
     def _output(self, dictionary):
         for name in sorted(dictionary):
-            print name.format(str(int(dictionary[name] * 1.25 + 0.5)))
+            print name.format(str(round(dictionary[name] * 1.25 + 0.5)))
 
 
 if __name__ == '__main__':

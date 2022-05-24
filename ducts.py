@@ -76,7 +76,7 @@ class Ducts(object):
     def _output(self, dictionary):
         for name in sorted(dictionary):
             print name + '\t' + 'ГОСТ 14918-2020' + '\t' + '' + '\t' + '' + '\t' \
-            + 'м' + '\t' + str(dictionary[name])
+            + 'м.' + '\t' + str(dictionary[name])
 
 
 if __name__ == '__main__':
